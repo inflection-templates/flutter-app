@@ -1,10 +1,18 @@
+
+
 import 'package:flutter/material.dart';
-import 'package:flutter_app/home_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_app/signup_page.dart';
 
 class FirstPage extends StatelessWidget {
+  final Function(Locale) changeLanguage;
+
+  const FirstPage({Key? key, required this.changeLanguage}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context);
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -41,14 +49,15 @@ class FirstPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                    MaterialPageRoute(
+                      builder: (context) => SignUpPage(changeLanguage: changeLanguage),
+                    ),
                   );
                 },
                 child: Text('Get Started'),
                 style: ElevatedButton.styleFrom(
-                      // backgroundColor: Colors.purple.shade700, // Change button color to blue
-                      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
-                    ),
+                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20),
+                ),
               ),
             ],
           ),
@@ -57,3 +66,7 @@ class FirstPage extends StatelessWidget {
     );
   }
 }
+
+
+
+

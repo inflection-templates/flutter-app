@@ -1,0 +1,14 @@
+{
+  "healthcarePoint": "स्वास्थ्य देखभाल बिंदु",
+  "signUp": "साइन अप करें",
+  "name": "नाम",
+  "email": "ईमेल",
+  "password": "पासवर्ड",
+  "pleaseEnterYourName": "कृपया अपना नाम दर्ज करें",
+  "pleaseEnterYourEmail": "कृपया अपना ईमेल दर्ज करें",
+  "pleaseEnterValidEmail": "कृपया एक मान्य ईमेल पता दर्ज करें",
+  "pleaseEnterYourPassword": "कृपया अपना पासवर्ड दर्ज करें",
+  "passwordMustBeAtLeast6Characters": "पासवर्ड कम से कम 6 अक्षर का होना चाहिए",
+  "signingUp": "साइन अप कर रहे हैं...",
+  "forgotPassword": "पासवर्ड भूल गए?"
+}
