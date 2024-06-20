@@ -9,9 +9,9 @@ final ThemeData lightTheme = ThemeData(
     iconTheme: IconThemeData(color: Colors.white),
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(color: Colors.black),
-    bodyText2: TextStyle(color: Colors.black),
-    headline1: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+    bodyLarge: TextStyle(color: Colors.black),
+    bodyMedium: TextStyle(color: Colors.black),
+    displayLarge: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
   ),
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.purple,
@@ -28,9 +28,9 @@ final ThemeData darkTheme = ThemeData(
     iconTheme: IconThemeData(color: Colors.white),
   ),
   textTheme: TextTheme(
-    bodyText1: TextStyle(color: Colors.white),
-    bodyText2: TextStyle(color: Colors.white),
-    headline1: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+    bodyLarge: TextStyle(color: Colors.white),
+    bodyMedium: TextStyle(color: Colors.white),
+    displayLarge: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
   ),
   buttonTheme: ButtonThemeData(
     buttonColor: Colors.purple,
