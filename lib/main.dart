@@ -1,11 +1,14 @@
 
 
+// import 'package:flutter/foundation.dart' show kIsWeb;
 // import 'package:flutter/material.dart';
 // import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:google_fonts/google_fonts.dart';
-// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-// import 'firstpage.dart'; 
+// import 'package:permission_handler/permission_handler.dart';
+// import 'firstpage.dart';
 // import 'themes/theme.dart';
+// import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+// import 'dart:io';
 
 // void main() {
 //   runApp(MyApp());
@@ -24,6 +27,68 @@
 //     setState(() {
 //       _locale = locale;
 //     });
+//   }
+
+//   Future<void> _requestCameraPermission() async {
+//     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+//       final status = await Permission.camera.request();
+//       if (status.isGranted) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Camera permission granted'),
+//           ),
+//         );
+//       } else if (status.isDenied || status.isPermanentlyDenied) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Cannot access camera'),
+//             action: SnackBarAction(
+//               label: 'Open Settings',
+//               onPressed: () {
+//                 openAppSettings();
+//               },
+//             ),
+//           ),
+//         );
+//       }
+//     } else {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Camera permission is not supported on this platform'),
+//         ),
+//       );
+//     }
+//   }
+
+//   Future<void> _requestLocationPermission() async {
+//     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+//       final status = await Permission.location.request();
+//       if (status.isGranted) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Location permission granted'),
+//           ),
+//         );
+//       } else if (status.isDenied || status.isPermanentlyDenied) {
+//         ScaffoldMessenger.of(context).showSnackBar(
+//           SnackBar(
+//             content: Text('Cannot access location'),
+//             action: SnackBarAction(
+//               label: 'Open Settings',
+//               onPressed: () {
+//                 openAppSettings();
+//               },
+//             ),
+//           ),
+//         );
+//       }
+//     } else {
+//       ScaffoldMessenger.of(context).showSnackBar(
+//         SnackBar(
+//           content: Text('Location permission is not supported on this platform'),
+//         ),
+//       );
+//     }
 //   }
 
 //   void _showLanguageDialog(BuildContext context) {
@@ -81,8 +146,15 @@
 //               AppLocalizations.of(context)?.healthcarePoint ?? 'Healthcare Point',
 //               style: GoogleFonts.lato(),
 //             ),
-//              actions: [
-              
+//             actions: [
+//               IconButton(
+//                 icon: Icon(Icons.camera_alt),
+//                 onPressed: _requestCameraPermission,
+//               ),
+//               IconButton(
+//                 icon: Icon(Icons.location_on),
+//                 onPressed: _requestLocationPermission,
+//               ),
 //               Switch(
 //                 value: darkMode,
 //                 onChanged: (value) {
@@ -100,17 +172,22 @@
 //   }
 // }
 
+
+import 'dart:io';
+
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'dart:io'; // Import the dart:io package
 import 'firstpage.dart';
 import 'themes/theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'firebase_api.dart'; 
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FirebaseAPI.initializeFirebase();
+
   runApp(MyApp());
 }
 
@@ -160,6 +237,37 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
+  Future<void> _requestLocationPermission() async {
+    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
+      final status = await Permission.location.request();
+      if (status.isGranted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Location permission granted'),
+          ),
+        );
+      } else if (status.isDenied || status.isPermanentlyDenied) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Cannot access location'),
+            action: SnackBarAction(
+              label: 'Open Settings',
+              onPressed: () {
+                openAppSettings();
+              },
+            ),
+          ),
+        );
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Location permission is not supported on this platform'),
+        ),
+      );
+    }
+  }
+
   void _showLanguageDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -198,9 +306,9 @@ class _MyAppState extends State<MyApp> {
       themeMode: ThemeMode.system,
       localizationsDelegates: [
         AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        // GlobalMaterialLocalizations.delegate,
+        // GlobalWidgetsLocalizations.delegate,
+        // GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: [
         Locale('en'),
@@ -219,6 +327,10 @@ class _MyAppState extends State<MyApp> {
               IconButton(
                 icon: Icon(Icons.camera_alt),
                 onPressed: _requestCameraPermission,
+              ),
+              IconButton(
+                icon: Icon(Icons.location_on),
+                onPressed: _requestLocationPermission,
               ),
               Switch(
                 value: darkMode,
